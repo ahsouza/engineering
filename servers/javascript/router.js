@@ -1,3 +1,4 @@
+// The prototype of our router for the prototype
 var proto = module.exports = function(options) {
   var opts = options || {}
 
@@ -15,4 +16,14 @@ var proto = module.exports = function(options) {
   router.stack = []
 
   return router;
+}
+
+proto.route = function route(path) {
+  var route = new Route(path)
+  var layer = new Layer(path,{},route.dispatch.bind(route))
+
+  layer.route = route;
+  this.stack.push(layer)
+
+  return route;
 }
